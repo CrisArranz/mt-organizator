@@ -1,6 +1,5 @@
-module.exports.getUsers = (req, res, next) => {
-  res.status(200).json({usuario: "encontrado"})
-}
+const createError = require("http-errors");
+const { User } = require("../models");
 
 module.exports.getUser = (req, res, next) => {
   const criterial = {};
@@ -11,5 +10,25 @@ module.exports.getUser = (req, res, next) => {
     criterial.nickname = nickname;
   }
 
-  res.status(200).json({usuario: criterial})
+  User
+    .find(criterial)
+    .then(user => res.status(200).json(user))
+    .catch(next)
+}
+
+module.exports.updateUser = (req, res, next) => {
+  const { email, password, nickname, name, surname, photo } = req.body;
+
+  const user = { email, password, nickname, name, surname, photo };
+
+  User
+    .findByIdAndUpdate("xxxxxxx", user, { new: true, runValidators: true })
+    .then(user => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        next(createError(404, "Error in user's update"));
+      }
+    })
+    .catch(next);
 }

@@ -89,5 +89,5 @@ userSchema.methods.checkPassword = function (passwordToMatch) {
   return bcrypt.compare(passwordToMatch, this.password)
 }
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 module.exports = User;
