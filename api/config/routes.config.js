@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { user, tournament } = require("../controllers");
+const { user, tournament, auth } = require("../controllers");
 const { secure } = require("../middlewares");
+
+router.post("/register", auth.register);
+
 
 router.get("/users", secure.isAdmin, user.getUser);
 router.get("/user/:nickname", secure.isLogged, secure.isYourAccount, user.getUser);
