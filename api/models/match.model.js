@@ -17,7 +17,8 @@ const matchSchema = new Schema({
     required: true,
     ref: "user"
   },
-  result: Object
+  result: Object,
+  round: Number
 },
 {
   timestamps: true,
