@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "db98a51a-dbc1-456c-bcfd-f97529d02581",
+		"name": "MT Organizator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7691251"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All Users - Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/users",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/user/Flashcondon",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"user",
+								"Flashcondon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"c.arranz.arevalo@gmail.com\",\r\n    \"password\": \"emrakul123qweasd\",\r\n    \"nickname\": \"Flashcondon\",\r\n    \"name\": \"Cristian\",\r\n    \"surname\": \"Arranz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/register",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tournaments",
+			"item": [
+				{
+					"name": "Get All Tournaments - Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/tournaments",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"tournaments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info Tournament",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/tournament/6425afc4c2d85222b22737a2",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"tournament",
+								"6425afc4c2d85222b22737a2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tournament",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Torneo de prueba 2\",\r\n    \"players\": [\"6425a11488124e6859068e98\", \"6425aa0a0732e3919a7388a8\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/tournament/new",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"tournament",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:3001",
+			"type": "string"
+		},
+		{
+			"key": "API",
+			"value": "/api/v1",
+			"type": "string"
+		}
+	]
+}
