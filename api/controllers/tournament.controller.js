@@ -28,11 +28,11 @@ module.exports.create = (req, res, next) => {
   const tournament = { name, players, rounds: calculateRounds(players.length) };
 
   if (players.length < 2) {
-    res.status(400).json(createError(400, "Error, the tournament need at leats 2 players"));
+    next(createError(400, "Error, the tournament need at leats 2 players"));
   }
 
   if (players.length !== [...new Set(players)].length) {
-    res.status(400).json(createError(400, "Error, the players cannot be duplicated"));
+    next(createError(400, "Error, the players cannot be duplicated"));
   }
 
   if (players.length >= 2 && players.length === [...new Set(players)].length) {
