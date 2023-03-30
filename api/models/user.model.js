@@ -71,6 +71,12 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.virtual("" , {
+  ref: "Tournament",
+  localField: "_id",
+  foreignField: "players"
+})
+
 userSchema.pre('save', function (next) {
   this.isAdmin = SUPER_ADMIN === this.email;
   if (this.isModified('password')) {

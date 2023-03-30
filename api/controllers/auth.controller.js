@@ -5,7 +5,7 @@ module.exports.register = (req, res, next) => {
 
   const { email, password, nickname, name, surname } = req.body;
 
-  const user = { email, password, nickname, name, surname };
+  const userInfo = { email, password, nickname, name, surname };
 
   User
     .findOne({$or: [{ email },{ nickname }]})
@@ -19,7 +19,7 @@ module.exports.register = (req, res, next) => {
         )
       } else {
         return User
-          .create(user)
+          .create(userInfo)
           .then(user => res.status(201).json(user))
       }
     })
