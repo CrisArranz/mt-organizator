@@ -13,5 +13,6 @@ router.patch("/user/:nickname", secure.isLogged, secure.isYourAccount, user.getU
 
 router.get("/tournaments", secure.isAdmin, tournament.getTournament);
 router.get("/tournament/:idTournament", secure.isAdmin, tournament.getTournament);
+router.post("/tournament/new", secure.isAdmin, tournament.create);
 
 module.exports = router;
