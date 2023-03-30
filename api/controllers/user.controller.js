@@ -12,6 +12,7 @@ module.exports.getUser = (req, res, next) => {
 
   User
     .find(criterial)
+    .populate("tournament")
     .then(user => res.status(200).json(user))
     .catch(next)
 }

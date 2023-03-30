@@ -63,7 +63,8 @@ const userSchema = new Schema({
       delete ret.__v;
       delete ret.password;
       delete ret.email;
-      delete ret.phone;
+      ret.tournaments = ret.tournament?.map(tournament => ({ name: tournament.name, id: tournament.id }))
+      delete ret.tournament;
       ret.id = ret._id;
       delete ret._id;
       return ret;
@@ -71,8 +72,8 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.virtual("" , {
-  ref: "Tournament",
+userSchema.virtual("tournament" , {
+  ref: "tournament",
   localField: "_id",
   foreignField: "players"
 })
