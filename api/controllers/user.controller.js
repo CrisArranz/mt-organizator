@@ -7,8 +7,14 @@ module.exports.getUser = (req, res, next) => {
   const { nickname } = req.params;
 
   if (nickname) {
-    criterial.nickname = nickname;
+    if (nickname === "me") {
+      criterial.nickname = req.user.nickname;
+    } else {
+      criterial.nickname = nickname;
+    }
   }
+
+  console.log(criterial)
 
   User
     .find(criterial)
