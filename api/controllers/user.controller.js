@@ -19,19 +19,19 @@ module.exports.getUser = (req, res, next) => {
 }
 
 module.exports.updateUser = (req, res, next) => {
-  const { userToUpdate } = req;
+  const { id } = req.userSearch;
   const { email, password, nickname, name, surname, photo } = req.body;
 
   const user = { email, password, nickname, name, surname, photo };
 
   User
-    .findByIdAndUpdate(userToUpdate, user, { new: true, runValidators: true })
+    .findByIdAndUpdate(id, user, { new: true, runValidators: true })
     .then(user => {
       if (user) {
-        delete req.userToUpdate;
+        delete req.userSearch;
         res.status(200).json(user);
       } else {
-        delete req.userToUpdate;
+        delete req.userSearch;
         next(createError(404, "Error in user's update"));
       }
     })

@@ -26,11 +26,12 @@ module.exports.existsUnique = (req, res, next) => {
       .find(criterial)
       .then((user) => {
         delete req.criterial;
-        req.userToUpdate = user[0]?.id;
+        req.userSearch = user[0];
         return User
           .findOne({$or: [{ email: email || "" }, { nickname: nickname || "" }], _id: { $ne: user[0].id }})
           .then((user) => {
             if (user) {
+              delete req.userSearch;
               next(createError(400, "The email or nickname is already in use"));
             } else {
               next();
