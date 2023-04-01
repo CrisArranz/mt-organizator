@@ -14,13 +14,13 @@ module.exports.getTournament = (req, res, next) => {
     .find(criterial)
     .populate("players")
     .then(tournament => res.status(200).json(tournament))
-    .catch(next)
+    .catch(next);
 }
 
 module.exports.create = (req, res, next) => {
   
   function calculateRounds(players) {
-    return players - (1 - players % 2)
+    return players - (1 - players % 2);
   }
 
   const { name, players } = req.body;
@@ -39,6 +39,14 @@ module.exports.create = (req, res, next) => {
     Tournament
       .create(tournament)
       .then(tournament => res.status(201).json(tournament))
-      .catch(next)
+      .catch(next);
   }
+}
+
+module.exports.deleteTournament = (req, res, next) => {
+  const { id } = req.tournament;
+  Tournament
+    .deleteOne({ _id: id })
+    .then(() => res.status(204).send())
+    .catch(next);
 }
