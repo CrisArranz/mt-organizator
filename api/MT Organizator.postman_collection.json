@@ -43,6 +43,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Christian\",\r\n    \"email\": \"cristian.arranz@icloud.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/users/Poker11",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"users",
+								"Poker11"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -105,6 +132,24 @@
 							],
 							"path": [
 								"tournaments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tournament - Admins",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/tournaments/6428006b356d4a0d5f2f74f0",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"tournaments",
+								"6428006b356d4a0d5f2f74f0"
 							]
 						}
 					},
