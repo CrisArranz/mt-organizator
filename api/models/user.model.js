@@ -41,7 +41,7 @@ const userSchema = new Schema({
   },
   photo: {
     type: String,
-    default: 'https://res.cloudinary.com/dp520ozjl/image/upload/v1659034965/glovo/dvyi5n3bxrymxwrrjgcf.png',
+    default: 'https://res.cloudinary.com/dp520ozjl/image/upload/v1680343730/mt-organizator/icon-image-not-found-free-vector_ixa88v.webp',
     validate: {
       validator: function(image){
         try {
