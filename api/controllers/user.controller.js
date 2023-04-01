@@ -14,8 +14,6 @@ module.exports.getUser = (req, res, next) => {
     }
   }
 
-  console.log(criterial)
-
   User
     .find(criterial)
     .populate("tournament")

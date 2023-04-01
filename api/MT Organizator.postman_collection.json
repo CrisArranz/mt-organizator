@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "db98a51a-dbc1-456c-bcfd-f97529d02581",
+		"_postman_id": "229bcb27-cc21-47e0-a313-c11bfaba6e40",
 		"name": "MT Organizator",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7691251"
@@ -32,39 +32,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}{{API}}/user/Flashcondon",
+							"raw": "{{URL}}{{API}}/users/Flashcondon",
 							"host": [
 								"{{URL}}{{API}}"
 							],
 							"path": [
-								"user",
+								"users",
 								"Flashcondon"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"c.arranz.arevalo@gmail.com\",\r\n    \"password\": \"emrakul123qweasd\",\r\n    \"nickname\": \"Flashcondon\",\r\n    \"name\": \"Cristian\",\r\n    \"surname\": \"Arranz\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}{{API}}/register",
-							"host": [
-								"{{URL}}{{API}}"
-							],
-							"path": [
-								"register"
 							]
 						}
 					},
@@ -98,12 +72,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}{{API}}/tournament/6425afc4c2d85222b22737a2",
+							"raw": "{{URL}}{{API}}/tournaments/6425afc4c2d85222b22737a2",
 							"host": [
 								"{{URL}}{{API}}"
 							],
 							"path": [
-								"tournament",
+								"tournaments",
 								"6425afc4c2d85222b22737a2"
 							]
 						}
@@ -117,7 +91,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Torneo de prueba 2\",\r\n    \"players\": [\"6425a11488124e6859068e98\", \"6425aa0a0732e3919a7388a8\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Torneo de prueba 1\",\r\n    \"players\": [\"6427ff02c14a17b81e423470\", \"6427ff8510a0886d2afb780b\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,13 +99,86 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}{{API}}/tournament/new",
+							"raw": "{{URL}}{{API}}/tournaments",
 							"host": [
 								"{{URL}}{{API}}"
 							],
 							"path": [
-								"tournament",
-								"new"
+								"tournaments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"c.arranz.arevalo@gmail.com\",\r\n    \"password\": \"emrakul123qweasd\",\r\n    \"nickname\": \"Flashcondon\",\r\n    \"name\": \"Cristian\",\r\n    \"surname\": \"Arranz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/register",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Flashcondon\",\r\n    \"password\": \"emrakul123qweasd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/login",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/logout",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"logout"
 							]
 						}
 					},
