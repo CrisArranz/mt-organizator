@@ -22,6 +22,8 @@ const tournamentSchema = new Schema({
       delete ret.__v;
       ret.id = ret._id;
       delete ret._id;
+      delete ret.createdAt;
+      delete ret.updatedAt;
       return ret;
     },
   },

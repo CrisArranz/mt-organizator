@@ -62,7 +62,9 @@ const userSchema = new Schema({
     transform: (doc, ret) => {
       delete ret.__v;
       delete ret.password;
-      delete ret.email;
+      delete ret.isAdmin;
+      delete ret.createdAt;
+      delete ret.updatedAt;
       ret.tournaments = ret.tournament?.map(tournament => ({ name: tournament.name, id: tournament.id }))
       delete ret.tournament;
       ret.id = ret._id;
@@ -93,7 +95,7 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.methods.checkPassword = function (passwordToMatch) {
-  return bcrypt.compare(passwordToMatch, this.password)
+  return bcrypt.compare(passwordToMatch, this.password);
 }
 
 const User = mongoose.model("user", userSchema);
