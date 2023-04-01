@@ -16,7 +16,7 @@ module.exports.isLogged = (req, res, next) => {
   }
 }
 
-module.exports.isYourAccount = (req, res, next) => {
+module.exports.isYourAccountOrAdmin = (req, res, next) => {
   const { nickname } = req.params;
   ;
   if (nickname === req.user?.nickname || nickname === "me" || req.user?.isAdmin) {
