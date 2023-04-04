@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const { Tournament } = require("../models");
+const { Tournament, Match } = require("../models");
 
 module.exports.getTournament = (req, res, next) => {
   const criterial = {};
@@ -23,9 +23,30 @@ module.exports.create = (req, res, next) => {
     return players - (1 - players % 2);
   }
 
-  const { name, players } = req.body;
+  function pairings(players, tournamentId, totalRounds) {
+    const pairings = [];
+    for (let i = 0; i < players.length; i++) {
+      for(let j = i + 1; j < players.length; j++) {
+        pairings.push(new Promise((resolve, reject) => {
+          Match
+            .create({
+              tournament: tournamentId,
+              player_one: players[i],
+              player_two: players[j],
+              round: (pairings.length % totalRounds) + 1
+            })
+            .then(() => resolve())
+            .catch(() => reject())
+        }))
+      }
+    }
+    return pairings;
+  }
 
-  const tournament = { name, players, rounds: calculateRounds(players.length) };
+  const { name, players } = req.body;
+  const totalRounds = calculateRounds(players.length);
+
+  const tournament = { name, players, rounds: totalRounds };
 
   if (players.length < 2) {
     next(createError(400, "Error, the tournament need at leats 2 players"));
@@ -38,7 +59,10 @@ module.exports.create = (req, res, next) => {
   if (players.length >= 2 && players.length === [...new Set(players)].length) {
     Tournament
       .create(tournament)
-      .then(tournament => res.status(201).json(tournament))
+      .then(tournament => {
+        return Promise.all(pairings(players, tournament.id, totalRounds))
+          .then(() => res.status(201).json(tournament))
+      })
       .catch(next);
   }
 }
