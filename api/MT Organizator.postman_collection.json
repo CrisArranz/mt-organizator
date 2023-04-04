@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "229bcb27-cc21-47e0-a313-c11bfaba6e40",
+		"_postman_id": "eea6df64-a6e7-4593-bd42-c229dcd16856",
 		"name": "MT Organizator",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7691251"
@@ -99,13 +99,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}{{API}}/tournaments/6425afc4c2d85222b22737a2",
+							"raw": "{{URL}}{{API}}/tournaments/642c875ca48a62152055828b",
 							"host": [
 								"{{URL}}{{API}}"
 							],
 							"path": [
 								"tournaments",
-								"6425afc4c2d85222b22737a2"
+								"642c875ca48a62152055828b"
 							]
 						}
 					},
@@ -118,7 +118,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Torneo de prueba 1\",\r\n    \"players\": [\"6427ff02c14a17b81e423470\", \"6427ff8510a0886d2afb780b\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Torneo de prueba 3\",\r\n    \"players\": [\"6427ff02c14a17b81e423470\", \"6427ff8510a0886d2afb780b\",\"642843679da1d1eaffad54ff\",\"642843e39da1d1eaffad5506\", \"642c838eb037b605563e73f7\", \"642c8512b037b605563e7415\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
