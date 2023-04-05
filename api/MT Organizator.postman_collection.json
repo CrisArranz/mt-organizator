@@ -99,13 +99,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}{{API}}/tournaments/642c875ca48a62152055828b",
+							"raw": "{{URL}}{{API}}/tournaments/642d55467774900e1b8a86e4",
 							"host": [
 								"{{URL}}{{API}}"
 							],
 							"path": [
 								"tournaments",
-								"642c875ca48a62152055828b"
+								"642d55467774900e1b8a86e4"
 							]
 						}
 					},
@@ -224,6 +224,73 @@
 							],
 							"path": [
 								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Matches",
+			"item": [
+				{
+					"name": "Update Match - Admins",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"result\": {\r\n        \"player_one\": 2,\r\n        \"player_two\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}{{API}}/matches/642d55467774900e1b8a86e7",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"matches",
+								"642d55467774900e1b8a86e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Matches - Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/matches",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"matches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info Match",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}{{API}}/matches/642d55467774900e1b8a86e7",
+							"host": [
+								"{{URL}}{{API}}"
+							],
+							"path": [
+								"matches",
+								"642d55467774900e1b8a86e7"
 							]
 						}
 					},
