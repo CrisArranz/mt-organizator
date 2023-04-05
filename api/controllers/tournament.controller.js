@@ -88,6 +88,10 @@ module.exports.deleteTournament = (req, res, next) => {
   const { id } = req.tournament;
   Tournament
     .deleteOne({ _id: id })
-    .then(() => res.status(204).send())
+    .then(() => {
+      return Match
+        .deleteMany({ tournament: id })
+        .then(() => res.status(204).send())
+    })
     .catch(next);
 }
