@@ -6,7 +6,12 @@ module.exports.getUser = (req, res, next) => {
 
   User
     .find(criterial)
-    .populate("tournament")
+    .populate({
+      path: "tournament",
+      populate: {
+        path: "matches"
+      }
+    })
     .then(user => {
       delete req.criterial;
       if (user.length === 1) {

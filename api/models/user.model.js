@@ -65,7 +65,18 @@ const userSchema = new Schema({
       delete ret.isAdmin;
       delete ret.createdAt;
       delete ret.updatedAt;
-      ret.tournaments = ret.tournament?.map(tournament => ({ name: tournament.name, id: tournament.id }))
+      ret.tournaments = ret.tournament?.map(tournament => 
+        ({ 
+          name: tournament.name, 
+          id: tournament.id, 
+          matches: tournament.matches.filter(match => {
+            delete match.tournament;
+            delete match.createdAt;
+            delete match.updatedAt;
+            return match.player_one.toString() === ret._id.toString() || match.player_two.toString() === ret._id.toString()
+          }) 
+        })
+      )
       delete ret.tournament;
       ret.id = ret._id;
       delete ret._id;
@@ -78,7 +89,7 @@ userSchema.virtual("tournament" , {
   ref: "tournament",
   localField: "_id",
   foreignField: "players"
-})
+});
 
 userSchema.pre('save', function (next) {
   this.isAdmin = SUPER_ADMIN === this.email;
