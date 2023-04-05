@@ -13,6 +13,7 @@ module.exports.getTournament = (req, res, next) => {
   Tournament
     .find(criterial)
     .populate("players")
+    .populate("matches")
     .then(tournament => res.status(200).json(tournament))
     .catch(next);
 }
@@ -25,15 +26,31 @@ module.exports.create = (req, res, next) => {
 
   function pairings(players, tournamentId, totalRounds) {
     const pairings = [];
+    const rounds = Array
+      .from(Array(totalRounds),(_,i) => i + 1)
+      .reduce((rounds, round) => {
+        rounds[round] = [];
+        return rounds;
+      },{});
     for (let i = 0; i < players.length; i++) {
       for(let j = i + 1; j < players.length; j++) {
+        let limitRound = 1;
+        let round = 0;
+        while(limitRound <= totalRounds && !round) {
+          if (!rounds[limitRound].includes(players[i]) && !rounds[limitRound].includes(players[j])) {
+            rounds[limitRound].push(players[i], players[j]);
+            round = limitRound;
+            limitRound = totalRounds;
+          }
+          limitRound++;
+        }
         pairings.push(new Promise((resolve, reject) => {
           Match
             .create({
               tournament: tournamentId,
               player_one: players[i],
               player_two: players[j],
-              round: (pairings.length % totalRounds) + 1
+              round: round
             })
             .then(() => resolve())
             .catch(() => reject())

@@ -18,6 +18,7 @@ const tournamentSchema = new Schema({
 {
   timestamps: true,
   toJSON: {
+    virtuals: true,
     transform: (doc, ret) => {
       delete ret.__v;
       ret.id = ret._id;
@@ -27,7 +28,13 @@ const tournamentSchema = new Schema({
       return ret;
     },
   },
-})
+});
+
+tournamentSchema.virtual("matches", {
+  ref: "match",
+  localField: "_id",
+  foreignField: "tournament"
+});
 
 const Tournament = mongoose.model("tournament", tournamentSchema);
 module.exports = Tournament;
