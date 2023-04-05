@@ -69,12 +69,10 @@ const userSchema = new Schema({
         ({ 
           name: tournament.name, 
           id: tournament.id, 
-          matches: tournament.matches.filter(match => {
-            delete match.tournament;
-            delete match.createdAt;
-            delete match.updatedAt;
-            return match.player_one.toString() === ret._id.toString() || match.player_two.toString() === ret._id.toString()
-          }) 
+          matches: Object.keys(tournament.matches)?.reduce((matches, round) => {
+            matches[round] = tournament.matches[round].filter(match => match.player_one.toString() === ret._id.toString() || match.player_two.toString() === ret._id.toString())
+            return matches;
+          }, {})
         })
       )
       delete ret.tournament;

@@ -24,20 +24,37 @@ module.exports.create = (req, res, next) => {
     return players - (1 - players % 2);
   }
 
-  function pairings(players, tournamentId, totalRounds) {
+  function pairings(players, tournamentId) {
     const pairings = [];
-    for (let i = 0; i < players.length; i++) {
-      for(let j = i + 1; j < players.length; j++) {
-        pairings.push(new Promise((resolve, reject) => {
-          Match
-            .create({
-              tournament: tournamentId,
-              player_one: players[i],
-              player_two: players[j],
-            })
-            .then(() => resolve())
-            .catch(() => reject())
-        }))
+    const participants = [...players];
+
+    for (let i = participants.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [participants[i], participants[j]] = [participants[j], participants[i]];
+    }
+
+    for (let round = 1; round <= participants.length; round++) {
+      if (round > 1) {
+        const firstPlayer = participants[0];
+        participants.shift();
+        participants.push(firstPlayer);
+      }
+    
+      for (let i = 0; i < participants.length; i += 2) {
+        if (i === participants.length - 1) {
+        } else {
+          pairings.push(new Promise((resolve, reject) => {
+            Match
+              .create({
+                tournament: tournamentId,
+                player_one: participants[i],
+                player_two: participants[i + 1],
+                round: round
+              })
+              .then(() => resolve())
+              .catch(() => reject())
+          }));
+        }
       }
     }
     return pairings;

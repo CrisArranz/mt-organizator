@@ -9,7 +9,7 @@ module.exports.getUser = (req, res, next) => {
     .populate({
       path: "tournament",
       populate: {
-        path: "matches"
+        path: "match"
       }
     })
     .then(user => {
