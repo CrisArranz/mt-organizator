@@ -26,6 +26,8 @@ const matchSchema = new Schema({
     transform: (doc, ret) => {
       delete ret.__v;
       ret.id = ret._id;
+      delete ret.createdAt;
+      delete ret.updatedAt;
       delete ret._id;
       return ret;
     },

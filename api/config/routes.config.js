@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { user, tournament, auth } = require("../controllers");
+const { user, tournament, auth, match } = require("../controllers");
 const { secure, tournamentSecure, userSecure } = require("../middlewares");
 
 router.post("/register", auth.register);
@@ -17,5 +17,9 @@ router.get("/tournaments", secure.isLogged, secure.isAdmin, tournament.getTourna
 router.get("/tournaments/:idTournament", secure.isAdmin, tournament.getTournament);
 router.delete("/tournaments/:idTournament", secure.isAdmin, tournamentSecure.existsTournament, tournament.deleteTournament);
 router.post("/tournaments", secure.isLogged, secure.isAdmin, tournament.create);
+
+router.get("/matches", secure.isLogged, secure.isAdmin, match.getMatch);
+router.get("/matches/:idMatch", secure.isLogged, match.getMatch);
+router.patch("/matches/:idMatch", secure.isLogged, secure.isAdmin, match.update);
 
 module.exports = router;
