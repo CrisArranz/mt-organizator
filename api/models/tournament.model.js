@@ -21,6 +21,16 @@ const tournamentSchema = new Schema({
     virtuals: true,
     transform: (doc, ret) => {
       delete ret.__v;
+      ret.matches = ret.match?.reduce((matches, match) => {
+        const infoMatch = { player_one: match.player_one, player_two: match.player_two, round: match.round, id: match.id };
+        if (matches[match.round ? match.round : "notPlayed"]) {
+          matches[match.round ? match.round : "notPlayed"].push(infoMatch);
+        } else {
+          matches[match.round ? match.round : "notPlayed"] = [infoMatch]    ;
+        }
+        return matches;
+      },{});
+      delete ret.match;
       ret.id = ret._id;
       delete ret._id;
       delete ret.createdAt;
@@ -30,7 +40,7 @@ const tournamentSchema = new Schema({
   },
 });
 
-tournamentSchema.virtual("matches", {
+tournamentSchema.virtual("match", {
   ref: "match",
   localField: "_id",
   foreignField: "tournament"
