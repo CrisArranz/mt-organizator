@@ -16,9 +16,8 @@ router.patch("/users/:nickname", secure.isLogged, secure.isYourAccountOrAdmin, u
 router.get("/tournaments", secure.isLogged, secure.isAdmin, tournament.getTournament);
 router.get("/tournaments/:idTournament", secure.isAdmin, tournament.getTournament);
 router.delete("/tournaments/:idTournament", secure.isAdmin, tournamentSecure.existsTournament, tournament.deleteTournament);
-router.post("/tournaments", secure.isLogged, secure.isAdmin, tournament.create);
+router.post("/tournaments", secure.isLogged, secure.isAdmin, tournament.create); 
 
-router.get("/matches", secure.isLogged, secure.isAdmin, match.getMatch);
 router.get("/matches/:idMatch", secure.isLogged, match.getMatch);
 router.patch("/matches/:idMatch", secure.isLogged, secure.isAdmin, match.update);
 
