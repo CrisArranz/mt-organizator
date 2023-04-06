@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eea6df64-a6e7-4593-bd42-c229dcd16856",
+		"_postman_id": "09cc9f23-1413-4eb4-b2bc-7462d52710dc",
 		"name": "MT Organizator",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7691251"
@@ -256,23 +256,6 @@
 							"path": [
 								"matches",
 								"642d55467774900e1b8a86e7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Matches - Admins",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}{{API}}/matches",
-							"host": [
-								"{{URL}}{{API}}"
-							],
-							"path": [
-								"matches"
 							]
 						}
 					},
