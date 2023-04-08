@@ -54,6 +54,10 @@ const userSchema = new Schema({
     }
   },
   isAdmin: Boolean,
+  isConfirm: {
+    type: Boolean,
+    default: false
+  }
 },
 {
   timestamps: true,
@@ -63,6 +67,7 @@ const userSchema = new Schema({
       delete ret.__v;
       delete ret.password;
       delete ret.isAdmin;
+      delete ret.isConfirm;
       delete ret.createdAt;
       delete ret.updatedAt;
       ret.tournaments = ret.tournament?.map(tournament => 

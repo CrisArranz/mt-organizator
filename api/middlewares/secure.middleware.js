@@ -16,6 +16,14 @@ module.exports.isLogged = (req, res, next) => {
   }
 }
 
+module.exports.isConfirmed = (req, res, next) => {
+  if (req.user?.isConfirm) {
+    next();
+  } else {
+    next(createError(401));
+  }
+}
+
 module.exports.isYourAccountOrAdmin = (req, res, next) => {
   const { nickname } = req.params;
   ;
