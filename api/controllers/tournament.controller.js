@@ -75,7 +75,7 @@ module.exports.create = (req, res, next) => {
 
   const playersTournament = players.map((player) => new Promise((resolve, reject) => {
     User
-      .findById(player.id)
+      .findById(player)
       .then((user) => {
         if (user) {
           resolve();
@@ -85,6 +85,7 @@ module.exports.create = (req, res, next) => {
       })
       .catch(() => reject())
   }));
+
 
   Promise.all(playersTournament)
   .then(() => {
