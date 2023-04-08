@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const { Tournament, Match } = require("../models");
+const { Tournament, Match, User } = require("../models");
 
 module.exports.getTournament = (req, res, next) => {
   const criterial = {};
@@ -73,15 +73,32 @@ module.exports.create = (req, res, next) => {
     next(createError(400, "Error, the players cannot be duplicated"));
   }
 
-  if (players.length >= 2 && players.length === [...new Set(players)].length) {
-    Tournament
-      .create(tournament)
-      .then(tournament => {
-        return Promise.all(pairings(players, tournament.id, totalRounds))
-          .then(() => res.status(201).json(tournament))
+  const playersTournament = players.map((player) => new Promise((resolve, reject) => {
+    User
+      .findById(player.id)
+      .then((user) => {
+        if (user) {
+          resolve();
+        } else {
+          reject();
+        }
       })
-      .catch(next);
-  }
+      .catch(() => reject())
+  }));
+
+  Promise.all(playersTournament)
+  .then(() => {
+    if (players.length >= 2 && players.length === [...new Set(players)].length) {
+      Tournament
+        .create(tournament)
+        .then(tournament => {
+          return Promise.all(pairings(players, tournament.id, totalRounds))
+            .then(() => res.status(201).json(tournament))
+        })
+        .catch(next);
+    }
+  })
+  .catch(() => next(createError(403, "One or more User don't exists")))
 }
 
 module.exports.deleteTournament = (req, res, next) => {
