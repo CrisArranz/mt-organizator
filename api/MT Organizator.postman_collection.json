@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "09cc9f23-1413-4eb4-b2bc-7462d52710dc",
+		"_postman_id": "c1cf04c4-c90a-409d-9bc0-c0c6bfef0e2e",
 		"name": "MT Organizator",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "7691251"
@@ -118,7 +118,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Torneo de prueba 3\",\r\n    \"players\": [\"6427ff02c14a17b81e423470\", \"6427ff8510a0886d2afb780b\",\"642843679da1d1eaffad54ff\",\"642843e39da1d1eaffad5506\", \"642c838eb037b605563e73f7\", \"642c8512b037b605563e7415\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Torneo de prueba 3\",\r\n    \"players\": [\"6427ff02c14a17b81e423470\", \"643165888fb8a5732362589e\",\"642843679da1d1eaffad54ff\",\"642843e39da1d1eaffad5506\", \"642c838eb037b605563e73f7\", \"642c8512b037b605563e7415\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -167,7 +167,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"c.arranz.arevalo@gmail.com\",\r\n    \"password\": \"emrakul123qweasd\",\r\n    \"nickname\": \"Flashcondon\",\r\n    \"name\": \"Cristian\",\r\n    \"surname\": \"Arranz\"\r\n}",
+							"raw": "{\r\n    \"email\": \"cristian.arranz@icloud.com\",\r\n    \"password\": \"emrakul123qweasd\",\r\n    \"nickname\": \"Cris1990\",\r\n    \"name\": \"Cristian\",\r\n    \"surname\": \"Arranz\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
