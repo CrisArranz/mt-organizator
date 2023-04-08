@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const { User } = require("../models");
+const { sendConfirmationEmail } = require("../config/mailer.config");
 
 module.exports.register = (req, res, next) => {
 
@@ -20,7 +21,26 @@ module.exports.register = (req, res, next) => {
       } else {
         return User
           .create(userInfo)
-          .then(user => res.status(201).json(user))
+          .then(user => {
+            sendConfirmationEmail(user)
+            res.status(201).json(user)
+          })
+      }
+    })
+    .catch(next);
+}
+
+module.exports.validate = (req, res, next) => {
+
+  const { id } = req.params;
+
+  User
+    .findByIdAndUpdate(id, { isConfirm: true }, { new: true, runValidators: true })
+    .then(user => {
+      if (user) {
+        res.status(200).redirect(`${process.env.WEB_URL}/login`);
+      } else {
+        next(createError(404, "Error in user's update"));
       }
     })
     .catch(next);
@@ -44,6 +64,9 @@ module.exports.login = (req, res, next) => {
       if (!user) {
         invalidAuthError();
       } else {
+        if (!user.isConfirm) {
+          return next(createError(401, "Please confirm your account"))
+        }
         return user
           .checkPassword(password)
           .then((match) => {
