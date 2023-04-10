@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const { Tournament, Match, User } = require("../models");
+const { Tournament, Match } = require("../models");
 
 module.exports.getTournament = (req, res, next) => {
   const criterial = {};
@@ -24,39 +24,31 @@ module.exports.create = (req, res, next) => {
     return players - (1 - players % 2);
   }
 
-  function pairings(players, tournamentId) {
+  function pairings(players, tournamentId, totalRounds) {
     const pairings = [];
-    const participants = [...players];
-
-    for (let i = participants.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [participants[i], participants[j]] = [participants[j], participants[i]];
-    }
-
-    for (let round = 1; round <= participants.length; round++) {
-      if (round > 1) {
-        const firstPlayer = participants[0];
-        participants.shift();
-        participants.push(firstPlayer);
-      }
+    const participants = players.length % 2 === 0 ? [...players] : [...players, null];
     
-      for (let i = 0; i < participants.length; i += 2) {
-        if (i === participants.length - 1) {
-        } else {
+    const numberParticipants = participants.length;
+
+    for (let round = 0; round < totalRounds; round++) {
+      for (let i = 0; i < Math.floor(numberParticipants / 2); i++) {
+        if (participants[i] && participants[numberParticipants - 1 - i]) {
           pairings.push(new Promise((resolve, reject) => {
             Match
               .create({
                 tournament: tournamentId,
                 player_one: participants[i],
-                player_two: participants[i + 1],
-                round: round
+                player_two: participants[numberParticipants - 1 - i],
+                round: round + 1
               })
               .then(() => resolve())
               .catch(() => reject())
           }));
         }
       }
-    }
+      participants.splice(1, 0, participants.pop());
+    }     
+
     return pairings;
   }
 
@@ -73,33 +65,15 @@ module.exports.create = (req, res, next) => {
     next(createError(400, "Error, the players cannot be duplicated"));
   }
 
-  const playersTournament = players.map((player) => new Promise((resolve, reject) => {
-    User
-      .findById(player)
-      .then((user) => {
-        if (user) {
-          resolve();
-        } else {
-          reject();
-        }
+  if (players.length >= 2 && players.length === [...new Set(players)].length) {
+    Tournament
+      .create(tournament)
+      .then(tournament => {
+        return Promise.all(pairings(players, tournament.id, totalRounds))
+          .then(() => res.status(201).json(tournament))
       })
-      .catch(() => reject())
-  }));
-
-
-  Promise.all(playersTournament)
-  .then(() => {
-    if (players.length >= 2 && players.length === [...new Set(players)].length) {
-      Tournament
-        .create(tournament)
-        .then(tournament => {
-          return Promise.all(pairings(players, tournament.id, totalRounds))
-            .then(() => res.status(201).json(tournament))
-        })
-        .catch(next);
-    }
-  })
-  .catch(() => next(createError(403, "One or more User don't exists")))
+      .catch(next);
+  }
 }
 
 module.exports.deleteTournament = (req, res, next) => {
