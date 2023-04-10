@@ -76,6 +76,7 @@ const userSchema = new Schema({
           id: tournament.id, 
           matches: Object.keys(tournament.matches)?.reduce((matches, round) => {
             matches[round] = tournament.matches[round].filter(match => match.player_one.toString() === ret._id.toString() || match.player_two.toString() === ret._id.toString())
+            if (!matches[round].length) delete matches[round]
             return matches;
           }, {})
         })
