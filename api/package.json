@@ -31,6 +31,13 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "standart": "^6.1.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standart/eslintrc.json",
+    "env": {
+      "jest": true
+    }
   }
 }
