@@ -24,19 +24,17 @@ module.exports.getUser = (req, res, next) => {
 }
 
 module.exports.updateUser = (req, res, next) => {
-  const { id } = req.userSearch;
-  const { email, password, nickname, name, surname, photo } = req.body;
+  const { userSearch } = req;
 
-  const user = { email, password, nickname, name, surname, photo };
+  Object.assign(userSearch, req.body);
 
-  User
-    .findByIdAndUpdate(id, user, { new: true, runValidators: true })
-    .then(user => {
+  userSearch
+    .save()
+    .then((user) => {
+      delete req.userSearch;
       if (user) {
-        delete req.userSearch;
         res.status(200).json(user);
       } else {
-        delete req.userSearch;
         next(createError(404, "Error in user's update"));
       }
     })

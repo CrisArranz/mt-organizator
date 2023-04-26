@@ -20,26 +20,21 @@ module.exports.getUserCriterial = (req, res, next) => {
 module.exports.existsUnique = (req, res, next) => {
   const { email, nickname } = req.body;
   const { criterial } = req;
-
-  if (email || nickname) {
-    User
-      .find(criterial)
-      .then((user) => {
-        delete req.criterial;
-        req.userSearch = user[0];
-        return User
-          .findOne({$or: [{ email: email || "" }, { nickname: nickname || "" }], _id: { $ne: user[0].id }})
-          .then((user) => {
-            if (user) {
-              delete req.userSearch;
-              next(createError(400, "The email or nickname is already in use"));
-            } else {
-              next();
-            }
-          })
-      })
-      .catch(next);
-  } else {
-    next();
-  }
+  User
+    .findOne(criterial)
+    .then((user) => {
+      delete req.criterial;
+      req.userSearch = user;
+      return User
+        .findOne({$or: [{ email: email || "" }, { nickname: nickname || "" }], _id: { $ne: user.id }})
+        .then((user) => {
+          if (user) {
+            delete req.userSearch;
+            next(createError(400, "The email or nickname is already in use"));
+          } else {
+            next();
+          }
+        })
+    })
+    .catch(next);
 }
